@@ -1,1 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
+:root{
+    --primary-color: #939cee;
+    --secondary-color: white;
+    --project-logo-image: './assests/project-icon.png';
+}
+
+.fw-bold {
+ font-weight: bold;
+}
