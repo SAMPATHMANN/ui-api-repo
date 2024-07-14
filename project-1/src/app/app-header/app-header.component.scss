@@ -1,0 +1,34 @@
+
+
+.header-container {
+    background-color: var(--primary-color);
+    border-radius: 1rem 0;
+    padding: 1rem 0.5rem;
+    border-bottom: 1px solid var(--primary-color);
+}
+
+.header-container .sections {
+    display: inline-flex;
+    color: var(--secondary-color);
+    height: 3rem;
+    width: 100%;
+}
+
+.header-container .sections .icon {
+    width: 10%;
+}
+
+.header-container .sections .title {
+    width: 70%;
+    padding: 10px;
+}
+
+.header-container .sections .profile {
+    width: 20%;
+}
+
+.header-container .sections .profile img {
+    width: 36px;
+    height: 36px;
+    padding: 10px;
+}

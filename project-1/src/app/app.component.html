@@ -177,7 +177,7 @@
   }
 </style>
 
-<main class="main">
+<!--<main class="main">
   <div class="content">
     <div class="left-side">
       <svg
@@ -322,7 +322,22 @@
       </div>
     </div>
   </div>
-</main>
+</main> -->
+
+<app-app-header (ProfileInfoClickEventCallBack)="ParentHandleProfileInfoClickEvent($event)"></app-app-header>
+
+<div >
+  <app-profile-info *ngIf="showProfileInfo">
+
+  </app-profile-info>
+</div>
+
+<!--Pace Holde for Dynamic component-->
+<!--
+https://www.google.com/search?sca_esv=3b3819b964c2d65d&sca_upv=1&rlz=1C1CHZN_enUS1117US1117&sxsrf=ADLYWIL8KMZUaDD427wYPZQzphNKu3UnlQ:1720919539978&q=angular+18+callback+function+to+child+component&tbm=vid&source=lnms&fbs=AEQNm0AVbySjNxIXoj6bNaq7uSpwmIS0gJlXN_LWYh5RkW9UG_J2iT2scTJ59gCgVXw95w_JAb-I9YA98pkPPMDYsF9TGFv4gOAsUr_0qFSUsyXUqAJ_W6McFN5H0Hkz58b6HkY89ItcOLwdNqocl5artPx-IOdKIdNlIYUwMHAMFVEZ8BoZ8fStGqD7KkQ_XmAliYI5kMH7-ppMQVzKrViWDZDtwb6BfA&sa=X&ved=2ahUKEwjz8PfurKWHAxVSrYkEHU8CCcEQ0pQJegQIDhAB&biw=1280&bih=665&dpr=1#fpstate=ive&vld=cid:705c0abd,vid:21nOkGNQGpY,st:0
+-->
+
+
 
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 <!-- * * * * * * * * * * * The content above * * * * * * * * * * * * -->
