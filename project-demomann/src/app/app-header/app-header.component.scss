@@ -5,6 +5,7 @@
     border-radius: 1rem 0;
     padding: 1rem 0.5rem;
     border-bottom: 1px solid var(--primary-color);
+    position: relative;
 }
 
 .header-container .sections {
@@ -25,6 +26,14 @@
 
 .header-container .sections .profile {
     width: 20%;
+    
+}
+
+.header-container .sections .profile img{
+    background-color: white;
+    border-radius: 2px;;
+    padding: 0% !important;
+    margin-top: 5px;;
 }
 
 .header-container .sections .profile img {

@@ -1,0 +1,99 @@
+<div class="page-content-header">
+    <div class="col-12">
+        <div class="title row">
+            <div class="description col-6">
+                <span>
+                    <h3>{{entryStateValue}}</h3>
+                    
+                </span>
+            </div>
+            <div class="actions col-6">
+                <span><img src="login3-icon.png" class="btn-login" (click)="handleLogin()" *ngIf="entryStateId == 1"/></span>
+                <span><img src="submit-form-icon.png" class="btn-register" (click)="handleRegister()" *ngIf="entryStateId == 2"/></span>
+                <span><img src="submit-form-icon.png" class="btn-reset-password" (click)="handleResetPassword()" *ngIf="entryStateId == 3"/></span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="page-content-body">
+    <form class="form col-12" [formGroup]="loginCreds">
+        <div class="element row" *ngIf="entryStateId == 2">
+            <div class="label col-12">
+                <label for="firstName">First Name</label>
+            </div>
+            <div class="control col-12">
+                <input type="text" id="firstName"
+                    formControlName="FirstName" />
+            </div>
+        </div>
+        <div class="element row" *ngIf="entryStateId == 2">
+            <div class="label col-12">
+                <label for="lastName">Last Name</label>
+            </div>
+            <div class="control col-12">
+                <input type="text" id="lastName"
+                    formControlName="LastName" />
+            </div>
+        </div>
+        
+        <div class="element row">
+            <div class="label col-12">
+                <label for="emailAddressEntered">Email</label>
+            </div>
+            <div class="control col-12">
+                <input type="email" id="emailAddressEntered"
+                    formControlName="Email" />
+            </div>
+        </div>
+        <div class="element row" *ngIf="entryStateId != 3">
+            <div class="label col-12">
+                <label for="passwordEntered">Password</label>
+            </div>
+            <div class="control col-12">
+                <input type="password" id="passwordEntered" 
+                    formControlName="Password" />
+            </div>
+            <div class="label col-12 " *ngIf="entryStateId == 1">
+                <label class="col-11">Forgot your password? Click here </label>
+                <span class="col-1"><img src="forgot-password-icon.png" class="btn-reset-password"
+                    (click)="handleResetPasswordView()" /></span>
+            </div>
+        </div>
+
+        <div class="element row" *ngIf="entryStateId == 3">
+            <div class="label col-12">
+                <label for="newPasswordEntered">New Password</label>
+            </div>
+            <div class="control col-12">
+                <input type="password" id="newPasswordEntered" 
+                    formControlName="NewPassword" />
+            </div>
+        </div>
+
+        <div class="element row" *ngIf="entryStateId == 2||entryStateId == 3">
+            <div class="label col-12">
+                <label for="passwordEntered">Re-Enter Password</label>
+            </div>
+            <div class="control col-12">
+                <input type="password" id="passwordEntered" 
+                    formControlName="PasswordReEnter" />
+            </div>
+        </div>
+
+        <div class="element row" *ngIf="entryStateId == 1">
+            <div class="label col-12">
+                <label class="col-11">Don't have an account? Click here to register</label>
+                <span class="col-1"><img src="register2-icon.png" class="btn-register"
+                    (click)="handleRegisterView()" /></span>
+            </div>
+        </div>
+
+        <div class="element row" *ngIf="entryStateId != 1">
+            <div class="label">
+                <img src="back-icon.png" class="btn-register"
+                (click)="handleBack()" />
+                <label> Go back</label>
+            </div>
+        </div>
+    </form>
+</div>
