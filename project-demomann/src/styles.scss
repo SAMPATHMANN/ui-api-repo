@@ -1,0 +1,169 @@
+/* You can add global styles to this file, and also import other style files */
+:root{
+    --primary-color: #939ece;
+    --secondary-color: white;
+    --project-logo-image: './assests/project-icon2.png';
+}
+
+.fw-bold {
+ font-weight: bold;
+}
+
+header {
+    position: fixed;
+    top: .1rem;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    color: #fff;
+    height: 2rem;
+    z-index: 9999;
+}
+
+main {
+    width: 90%;
+    margin: 6rem 5%;
+}
+
+.page-content-header{
+    border-bottom: 1px solid var(--primary-color);
+    position: fixed;
+    width: 90%;
+    background-color: rgb(255, 255, 255, 255);
+    /* height: 3rem; */
+    top: 4rem;
+    z-index: 9998;
+}
+
+.page-content-header div:first-child{
+    
+    margin: 2rem 2rem 1rem 2rem;
+}
+
+.page-content-body{
+    top: 12.9rem;
+    z-index: 9997;
+    position: absolute;
+    width: 90%;
+}
+
+
+.form {
+    width: 90%;
+    margin: 0% 5%;
+    
+}
+
+
+
+.form .row{
+    margin: 2rem 0 0 2rem;
+    display: inline-flex;
+}
+
+.page-content-header .title{
+    display: inline-flex;
+    // margin: 2rem .5rem .5rem .5rem;
+    width: 90%;
+}
+.page-content-header .title .description{
+    width: 70%;
+    margin-top: 0.5rem;
+}
+
+.page-content-header .title .actions{
+    width: 30%
+}
+.page-content-header .title h3{
+    margin: 0px;
+    text-align: left;
+}
+.page-content-header .title img,
+.page-content-header .title img:hover,
+.form .element img,
+.form .element img:hover{
+    margin: 3px 0 0 10px;
+    text-align: right;
+    width: 30px;
+}
+
+
+.form .element{
+    display: block;
+    margin-top: 3rem;
+    margin-left: 3rem;
+}
+
+.form .element .label{
+    color: gray;
+    font-size: small;
+}
+
+.form .element .control{
+    display: inline-flex;
+    width: 100%;
+}
+
+.form .element .control input[type='text'],
+.form .element .control input[type='password'],
+.form .element .control input[type='email']{
+    width: 15rem;
+    height: 1.5rem;
+    border-top-width: 0px;
+    border-right-width: 0px;
+    border-left-width: 0px;
+    border-bottom-color: gray;
+}
+
+.form .element .control button{
+    border: 2px solid var(--primary-color);
+    border-radius: .5rem;
+    padding: .5rem;
+    color: var(--primary-color);
+    background-color: white;
+}
+
+/////////////////////////////////////////////////////////
+/// 
+/// 
+
+.page-content-header .title img:hover,
+.form .element img:hover{
+    border-bottom: 2px solid var(--primary-color);
+}
+
+.form .element .label,
+.form .element .label:hover{
+    width: 100%;
+}
+
+
+
+.form .element:hover .label,
+.form .element .control button:hover{
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.form .element:hover input[type='text']{
+    // width: 100%;
+    border-top-width: 0px;
+    border-right-width: 0px;
+    border-left-width: 0px;
+    border-bottom-color: gray;
+    outline: 0px;
+}
+
+.form .element .control input[type='text']:focus-visible,
+.form .element .control input[type='email']:focus-visible,
+.form .element .control input[type='password']:focus-visible{
+    border-top-width: 0px;
+    border-right-width: 0px;
+    border-left-width: 0px;
+    border-bottom-color: gray;
+    outline: 0px;
+}
+
+.form .element .control input::placeholder{
+    font: .75rem sans-serif;
+}

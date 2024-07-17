@@ -12,8 +12,8 @@
 *.vsix
 
 .vscode/launch.json
-project-1/.vscode/extensions.json
-project-1/.vscode/extensions.json
-project-1/.vscode/launch.json
-project-1/.vscode/tasks.json
-project-1/.vscode/tasks.json
+project-demomann/.vscode/extensions.json
+project-demomann/.vscode/extensions.json
+project-demomann/.vscode/launch.json
+project-demomann/.vscode/tasks.json
+project-demomann/.vscode/tasks.json
