@@ -30,18 +30,17 @@ main {
     position: fixed;
     width: 90%;
     background-color: rgb(255, 255, 255, 255);
-    /* height: 3rem; */
     top: 4rem;
     z-index: 9998;
 }
 
-.page-content-header div:first-child{
-    
+.page-content-header .container:first-child{
+    position: relative;
     margin: 2rem 2rem 1rem 2rem;
 }
 
 .page-content-body{
-    top: 12.9rem;
+    top: 12rem;
     z-index: 9997;
     position: absolute;
     width: 90%;
@@ -59,6 +58,10 @@ main {
 .form .row{
     margin: 2rem 0 0 2rem;
     display: inline-flex;
+}
+
+form .form-seperator{
+    border-right: 2px solid var(--primary-color);
 }
 
 .page-content-header .title{
@@ -82,9 +85,15 @@ main {
 .page-content-header .title img:hover,
 .form .element img,
 .form .element img:hover{
-    margin: 3px 0 0 10px;
+    margin: 0 0 0 10px;
     text-align: right;
     width: 30px;
+}
+
+.page-content-header .title img,
+.page-content-header .title img:hover{
+    position: absolute;
+    margin-top: 9px;
 }
 
 

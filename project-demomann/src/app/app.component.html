@@ -180,10 +180,10 @@
 <main class="main">
   <div class="body">
 
-    <app-login-page *ngIf="!isValidUser"
+    <app-login-page *ngIf="profile == null"
       (ProfileAuthenticationEventCallBack)="ProfileAuthenticationEventCallBack($event)"></app-login-page>
 
-    <app-profile-info *ngIf="showProfileInfo"></app-profile-info>
+    <app-profile-info *ngIf="profile != null && showProfileInfo"></app-profile-info>
 
     <!-- <app-child-test 
     [parentCallText]="parentCallText"
