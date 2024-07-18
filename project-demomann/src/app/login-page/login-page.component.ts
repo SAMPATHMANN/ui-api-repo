@@ -17,6 +17,7 @@ export class LoginPageComponent implements OnInit {
   entryStateId : number = 0;
   entryStateValue: string = '';
   
+  formSeperator: string = "form-seperator";
   // emailAddressEntered= new FormControl('', [Validators.required]);
   // passwordEntered= new FormControl('', [Validators.required]);
 
@@ -41,18 +42,20 @@ export class LoginPageComponent implements OnInit {
 
   handleRegisterView(){
     this.SetEntryState(SystemEntryTypeEnum.Register);
+    this.formSeperator ="";
   }
 
   handleRegister(){
-    
     this.ProfileAuthenticationEventCallBack.emit({obj: this.loginCreds.value, type: SystemEntryTypeEnum.Register});
   }
 
   handleResetPasswordView(){
     this.SetEntryState(SystemEntryTypeEnum.ForgotPassword);
+    this.formSeperator ="";
   }
 
   handleBack(){
+    this.formSeperator= "form-seperator";
     this.SetEntryState(SystemEntryTypeEnum.Login);
   }
 
@@ -72,7 +75,7 @@ export class LoginPageComponent implements OnInit {
         break;
       case SystemEntryTypeEnum.ForgotPassword:
         this.entryStateId = 3;
-        this.entryStateValue = "Forgot Password"
+        this.entryStateValue = "Change Password"
         break;
         default:
           this.entryStateId = 1;

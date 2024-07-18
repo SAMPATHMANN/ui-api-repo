@@ -7,8 +7,7 @@ import { ProfileInfoComponent } from './profile-info/profile-info.component';
 import { provideHttpClient } from '@angular/common/http';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-// import { NgIdleKeepaliveModule } from '@ng-idle/keepalive'; // this includes the core NgIdleModule but includes keepalive providers for easy wireup
-
+import {NgIdleKeepaliveModule} from '@ng-idle/keepalive';
 
 @NgModule({
   declarations: [
@@ -18,7 +17,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ProfileInfoComponent
   ],
   imports: [
-    BrowserModule, ReactiveFormsModule, FormsModule
+    BrowserModule, ReactiveFormsModule, FormsModule, NgIdleKeepaliveModule.forRoot()
   ],
   providers: [provideHttpClient()], 
   bootstrap: [AppComponent]
