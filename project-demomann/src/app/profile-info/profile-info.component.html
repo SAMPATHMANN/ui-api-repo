@@ -1,57 +1,149 @@
-
-
+<!-- Header -->
 <div class="page-content-header">
-    <div>
-        <div class="title">
-            <div class="description">
-                <span><h3>Profile Info</h3></span>
+    <div class="container">
+        <div class="title col-12 d-line-flex">
+            <div class="description col-12">
+                <div class="col-12 row  d-line-flex">
+                    <div class="col-12 row d-line-flex">
+                        <span class="col-2">
+                            <img   
+                                src="back-icon.png" class="btn-back" (click)="handleBack()" />
+                        </span>
+                        <span class="fs-2 col-10">{{title}}</span>
+                    </div>
+                    <div class="">
+                    </div>
+                </div>
             </div>
-            <div class="actions">
-                <span><img src="pencil-icon.png" class="btn-edit" (click)="handleEnable()" *ngIf="isDisabled"/></span>
-                <span><img src="reset-icon.png" class="btn-reset" (click)="handleReset()" *ngIf="!isDisabled"/></span>
-                <span><img src="save-icon.png" class="btn-save" (click)="handleSave()" *ngIf="!isDisabled"/></span>
-            </div>
+            <!-- <div class="actions">
+            </div> -->
         </div>
     </div>
 </div>
+
+<!-- Form -->
 <div class="page-content-body">
-    <div class="form">
+    <form class="form col-12 row d-line-flex" [formGroup]="profileForm">
+        
+        <div class="col-6">
+            <div class="element row">
+                <div class="text-danger" *ngIf="ApiCallError != null">
+                    <span>{{ApiCallError}}</span>
+                </div>
+            </div>
+            <div class="element row" *ngIf="profileActionTypeId == 4">
+                <div class="label col-12">
+                    <label for="firstName">First Name</label>
+                </div>
+                <div class="control col-12">
+                    <input type="text" id="firstName" formControlName="FirstName" placeholder="Eg: John"/>
+                </div>
+                <div class="text-danger">
+                    <span *ngIf="profileFormSubmit && profileFormValidators?.FirstName.errors?.['required']">First Name is Required</span>
+                </div>
+            </div>
+            <div class="element row" *ngIf="profileActionTypeId == 4">
+                <div class="label col-12">
+                    <label for="lastName">Last Name</label>
+                </div>
+                <div class="control col-12">
+                    <input type="text" id="lastName" formControlName="LastName"  placeholder="Eg: Dove"/>
+                </div>
+                <div class="text-danger">
+                    <span *ngIf="profileFormSubmit && profileFormValidators?.LastName.errors?.['required']">Last Name is Required</span>
+                </div>
+            </div>
+            <div class="element row" *ngIf="profileActionTypeId == 4">
+                <div class="label col-12">
+                    <label for="lastName">Phone</label>
+                </div>
+                <div class="control col-12">
+                    <input type="text" id="phone" formControlName="Phone"  placeholder="Eg: +1(999)999-9999"/>
+                </div>
+                <div class="text-danger">
+                    <span *ngIf="profileFormSubmit && profileFormValidators?.Phone.errors?.['required']">Phone# is Required</span>
+                </div>
+            </div>
+            <div class="element row" *ngIf="profileActionTypeId == 5">
+                <div class="label col-12">
+                    <label for="email">Current Email is {{currentEmail}}</label>
+                </div>
+                <!-- <div class="control col-12">
+                    <input type="text" id="email" formControlName="Email"  placeholder="Eg: john.Doe@example.com"/>
+                </div>
+                <div class="text-danger">
+                    <span *ngIf="profileFormSubmit && profileFormValidators?.Email.errors?.['required']">Email is Required</span>
+                </div> -->
+            </div>
+            <div class="element row" *ngIf="profileActionTypeId == 5">
+                <div class="label col-12">
+                    <label for="email">Change to Email</label>
+                </div>
+                <div class="control col-12">
+                    <input type="text" id="email" formControlName="EmailReenter"  placeholder="Eg: john.Doe@example.com"/>
+                </div>
+                <div class="text-danger">
+                    <span *ngIf="profileFormSubmit && profileFormValidators?.EmailReenter.errors?.['required']">Change to Email is Required</span>
+                    <span *ngIf="profileFormSubmit && profileFormValidators?.EmailReenter.errors?.['email']">Email Format is incorrect</span>
+                </div>
+            </div>
+            <div class="element row"  *ngIf="profileActionTypeId == 3">
+                <div class="label col-12">
+                    <label for="password">New Password</label>
+                </div>
+                <div class="control col-12">
+                    <input type="password" id="password" formControlName="Password"  placeholder="Eg: M@nn1236s"/>
+                </div>
+                <div class="text-danger">
+                    <span *ngIf="profileFormSubmit && profileFormValidators?.Password.errors?.['required']">New Password is Required</span>
+                </div>
+            </div>
+            <div class="element row" *ngIf="profileActionTypeId == 3">
+                <div class="label col-12">
+                    <label for="passwordreenter">Re-enter Password</label>
+                </div>
+                <div class="control col-12">
+                    <input type="password" id="passwordreenter" formControlName="PasswordReEnter"  placeholder="Eg: M@nn1236s"/>
+                </div>
+                <div class="text-danger">
+                    <span *ngIf="profileFormSubmit && profileFormValidators?.PasswordReEnter.errors?.['required']">Re-enter Password is Required</span>
+                </div>
+            </div>
+            <div class="element row" *ngIf="profileActionTypeId == 4">
+                <div class="label col-12" >
+                    <span>Update Profile</span>
+                    <img src="login3-icon.png" class="btn-login" (click)="handleSaveDemogrph()" />
+                </div>
+            </div>
+            <div class="element row" *ngIf="profileActionTypeId == 5">
+                <div class="label col-12" >
+                    <span>Change Email</span>
+                    <img src="login3-icon.png" class="btn-login"  (click)="handleChangeEmail()"/>
+                </div>
+            </div>
+            <div class="element row" *ngIf="profileActionTypeId == 3">
+                <div class="label col-12" >
+                    <span>Reset Password</span>
+                    <img src="login3-icon.png" class="btn-login"  (click)="handleResetPassword()"/>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 {{formSeperator}}" *ngIf="profileActionTypeId == 4">
+            <div class="element row">
+                <div class=" col-12 ">
+                    <span class="col-11 position-relative">Change Password? Click here </span>
+                    <span class="col-1"><img src="forgot-password-icon.png" class="btn-reset-password"
+                            (click)="handleResetPasswordView()" /></span>
+                </div>
 
-        <div class="element">
-            <div class="label">
-                <label>First Name</label>
             </div>
-            <div class="control">
-                <input type="text" [disabled]="isDisabled"/>
-            </div>
-        </div>
-        <div class="element">
-            <div class="label">
-                <label>Last Name</label>
-            </div>
-            <div class="control">
-                <input type="text" [disabled]="isDisabled"/>
+            <div class="element row">
+                <div class=" col-12">
+                    <span class="col-11">Change Email Account? Click here</span>
+                    <span class="col-1"><img src="register2-icon.png" class="btn-register"
+                            (click)="handleResetEmailAccountView()" /></span>
+                </div>
             </div>
         </div>
-        <div class="element">
-            <div class="label">
-                <label>Phone#</label>
-            </div>
-            <div class="control">
-                <input type="text" [disabled]="isDisabled"/>
-            </div>
-        </div>
-        <div class="element">
-            <div class="label">
-                <label>Password</label>
-            </div>
-            <div class="control">
-                <input type="password" [disabled]="isDisabled"/>
-            </div>
-        </div>
-
-    </div>
+    </form>
 </div>
-
-
-

@@ -1,0 +1,12 @@
+{
+    "name":"demomann beta",
+    "vesrion":"1.0.0",
+    "description":"Open Source - Helps applicants & recruiters reduce research work.",
+    "manifest_version":1,
+    "author":"MS",
+    "action":{
+        "default_popup":"index.html",
+        "default_title":"demomann beta"
+    }
+
+}

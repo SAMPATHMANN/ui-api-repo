@@ -1,7 +1,7 @@
 import { AsyncPipe, CommonModule, NgComponentOutlet } from '@angular/common';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { SystemEntryTypeEnum } from '../Models/SystemEntryTypeEnum';
+import { ProfileActionTypeEnum } from '../Models/Enums';
 
 @Component({
   selector: 'app-login-page',
@@ -14,73 +14,98 @@ import { SystemEntryTypeEnum } from '../Models/SystemEntryTypeEnum';
 export class LoginPageComponent implements OnInit {
 
 
+  @Input() ProfileActionTypes:any = null;
   entryStateId : number = 0;
   entryStateValue: string = '';
   
   formSeperator: string = "form-seperator";
-  // emailAddressEntered= new FormControl('', [Validators.required]);
-  // passwordEntered= new FormControl('', [Validators.required]);
 
-  loginCreds = new FormGroup({
-    FirstName: new FormControl('', [Validators.required]),
-    LastName: new FormControl('', [Validators.required]),
-    Email: new FormControl('', [Validators.required]),
-    Password: new FormControl('', [Validators.required]),
-    PasswordReEnter:  new FormControl('', [Validators.required]),
-    NewPassword: new FormControl('', [Validators.required]),
-  });
+  credentialForm: FormGroup;
+  credentialFormValidators: any; 
+  credentialFormSubmit:boolean = false;
 
+  @Output() HandleParentCallBack = new EventEmitter<any>();
+  @Input() ApiCallError: any = null;
 
-  @Output() public ProfileAuthenticationEventCallBack = new EventEmitter<any>();
+  constructor(){
+    this.credentialForm = new FormGroup({
+      FirstName: new FormControl(''),
+      LastName: new FormControl(''),
+      Email: new FormControl('', [Validators.required, Validators.email]),
+      Phone: new FormControl(''),
+      Password: new FormControl('', [Validators.required, Validators.minLength(8)]),
+      PasswordReEnter:  new FormControl(''),
+    });
+    this.credentialFormValidators = {
+      FirstName: this.credentialForm.controls["FirstName"],
+      LastName: this.credentialForm.controls["LastName"],
+      Email: this.credentialForm.controls["Email"],
+      Phone: this.credentialForm.controls["Phone"],
+      Password: this.credentialForm.controls["Password"],
+      PasswordReEnter:  this.credentialForm.controls["PasswordReEnter"],
+    };
+  }
+
+  
+
+  
 
   ngOnInit(): void {
-      this.SetEntryState(SystemEntryTypeEnum.Login);
+    this.SetEntryState(ProfileActionTypeEnum.Login);
   }
   handleLogin(){
-    this.ProfileAuthenticationEventCallBack.emit({obj: this.loginCreds.value, type: SystemEntryTypeEnum.Login});
+      this.CredentialFormSubmission(ProfileActionTypeEnum.Login);
   }
 
   handleRegisterView(){
-    this.SetEntryState(SystemEntryTypeEnum.Register);
+    this.ApiCallError = null;
+    (<FormControl>this.credentialFormValidators?.FirstName)?.addValidators([Validators.required]);
+    (<FormControl>this.credentialFormValidators?.LastName)?.addValidators([Validators.required]);
+    (<FormControl>this.credentialFormValidators?.PasswordReEnter)?.addValidators([Validators.required]);
+    // (<FormControl>this.credentialFormValidators?.Phone)?.addValidators([Validators.required, Validators.pattern(/^\+?\d{1,4}?\(?\d{1,3}?\)?\d{1,4}\d{1,4}?[\-]\d{1,9}/g)]);
+    this.SetEntryState(ProfileActionTypeEnum.Register);
     this.formSeperator ="";
   }
 
   handleRegister(){
-    this.ProfileAuthenticationEventCallBack.emit({obj: this.loginCreds.value, type: SystemEntryTypeEnum.Register});
+    this.CredentialFormSubmission(ProfileActionTypeEnum.Register);
   }
 
   handleResetPasswordView(){
-    this.SetEntryState(SystemEntryTypeEnum.ForgotPassword);
+    this.ApiCallError = null;
+    this.SetEntryState(ProfileActionTypeEnum.ResetPassword);
     this.formSeperator ="";
   }
 
   handleBack(){
+    this.ApiCallError = null;
     this.formSeperator= "form-seperator";
-    this.SetEntryState(SystemEntryTypeEnum.Login);
+    (<FormControl>this.credentialFormValidators?.FirstName)?.removeValidators(x=>x);
+    (<FormControl>this.credentialFormValidators?.LastName)?.removeValidators(x=>x);
+    (<FormControl>this.credentialFormValidators?.PasswordReEnter)?.removeValidators(x=>x);
+    (<FormControl>this.credentialFormValidators?.Phone)?.removeValidators(x=>x);
+    this.SetEntryState(ProfileActionTypeEnum.Login);
   }
 
   handleResetPassword(){
-    this.ProfileAuthenticationEventCallBack.emit({obj: this.loginCreds.value, type: SystemEntryTypeEnum.ForgotPassword});
+    this.CredentialFormSubmission(ProfileActionTypeEnum.ResetPassword);
   }
 
-  SetEntryState(stateEnum: SystemEntryTypeEnum){
-    switch(stateEnum){
-      case SystemEntryTypeEnum.Login:
-        this.entryStateId = 1;
-        this.entryStateValue = "Login";
-        break;
-      case SystemEntryTypeEnum.Register:
-        this.entryStateId = 2;
-        this.entryStateValue = "Register";
-        break;
-      case SystemEntryTypeEnum.ForgotPassword:
-        this.entryStateId = 3;
-        this.entryStateValue = "Change Password"
-        break;
-        default:
-          this.entryStateId = 1;
-        this.entryStateValue = "Login";
-          break;
-    }
+  CredentialFormSubmission(formSubmitType: ProfileActionTypeEnum) {
+    //debugger;
+    this.credentialFormSubmit = true;
+    let isformValid = this.credentialForm.valid;
+    if (isformValid)
+      this.HandleParentCallBack
+        .emit({ obj: this.credentialForm.value, type: formSubmitType });
   }
+
+  SetEntryState(stateEnum: ProfileActionTypeEnum){
+    // console.log(stateEnum);
+    this.entryStateId = this.ProfileActionTypes? this.ProfileActionTypes[stateEnum-1]?.actionId : 1;
+    // console.log(this.entryStateId);
+    this.entryStateValue = this.ProfileActionTypes? this.ProfileActionTypes[stateEnum-1]?.actionDescription: "Login";
+    // console.log(this.entryStateValue);
+  }
+
 }

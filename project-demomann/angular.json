@@ -30,7 +30,8 @@
                 "glob": "**/*",
                 "input": "public"
               },
-              "src/assests"
+              "src/assests",
+              "src/manifest.json"
             ],
             "styles": [
               "src/styles.scss"
