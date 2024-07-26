@@ -61,7 +61,7 @@ main {
 }
 
 form .form-seperator{
-    border-right: 2px solid var(--primary-color);
+    border-left: 2px solid var(--primary-color);
 }
 
 .page-content-header .title{
@@ -70,7 +70,6 @@ form .form-seperator{
     width: 90%;
 }
 .page-content-header .title .description{
-    width: 70%;
     margin-top: 0.5rem;
 }
 

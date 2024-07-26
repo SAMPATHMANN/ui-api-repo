@@ -13,20 +13,28 @@ import { RouterOutlet } from '@angular/router';
 export class AppHeaderComponent implements OnInit {
 
   constructor(){
-    console.log(this.data);
+    //console.log(this.data);
   }
   ngOnInit(): void {
-    console.log(this.data);
+    //console.log(this.data);
   }
   @Input() title = 'demomann';
 
-  showProfileInfo: any = false;
+  showProfileInfo: any = null;
 
   @Input() data:any = null;
   @Output()  ProfileInfoClickEventCallBack = new EventEmitter<any>();
 
   profileInfoClickEventCallBack(){
     this.ProfileInfoClickEventCallBack.emit({showProfileInfo: this.showProfileInfo});
+  }
+  profileLogoutClickEvent(){
+    this.showProfileInfo = false;
+    this.profileInfoClickEventCallBack();
+  }
+  profileLoginClickEvent(){
+    this.showProfileInfo = null;
+    this.profileInfoClickEventCallBack();
   }
 
   profileIconClickEvent() {

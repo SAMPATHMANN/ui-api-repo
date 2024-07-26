@@ -6,8 +6,14 @@
             <!-- <span><strong>{{title}}</strong> </span> -->
             <span><img style="height: 3rem; width: 12rem;" src="project3-icon.png"></span>
         </div>
-        <div *ngIf="data != null" class="profile" (click)="profileIconClickEvent()">
+        <div *ngIf="data == null" class="profile ml-2" (click)="profileLoginClickEvent()">
+            <span><img src="login3-icon.png"></span>
+        </div>
+        <div *ngIf="data != null" class="profile ml-2" (click)="profileIconClickEvent()">
             <span><img src="profile-icon.png"></span>
+        </div>
+        <div *ngIf="data != null" class="profile ml-2" (click)="profileLogoutClickEvent()">
+            <span><img src="logout-icon.png"></span>
         </div>
     </div>
 </div>

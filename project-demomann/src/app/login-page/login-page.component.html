@@ -2,32 +2,18 @@
 <div class="page-content-header">
     <div class="container">
         <div class="title col-12 d-line-flex">
-            <div class="description ">
-                <div class="col-6 row d-line-flex">
-                    <div class="">
-                        <span class="fs-2">{{entryStateValue}}</span>
-                        <span>
-                            <img src="login3-icon.png" class="btn-login" (click)="handleLogin()"
-                                *ngIf="entryStateId == 1" />
+            <div class="description col-12">
+                <div class="col-12 row  d-line-flex">
+                    <div class="col-12 row d-line-flex">
+                        <span class="col-2">
+                            <img  *ngIf="entryStateId != 1" src="back-icon.png" class="btn-back" (click)="handleBack()" />
                         </span>
-                        <span>
-                            <img src="submit-form-icon.png" class="btn-register" (click)="handleRegister()"
-                                *ngIf="entryStateId == 2" />
-                        </span>
-                        <span>
-                            <img src="submit-form-icon.png" class="btn-reset-password" (click)="handleResetPassword()"
-                                *ngIf="entryStateId == 3" />
-                        </span>
+                        <span class="fs-2 col-10">{{entryStateValue}}</span>
                     </div>
                     <div class="">
 
                     </div>
                 </div>
-
-            </div>
-            <div class="actions col-6">
-
-
             </div>
         </div>
     </div>
@@ -35,14 +21,23 @@
 
 <!-- Form -->
 <div class="page-content-body">
-    <form class="form col-12 row d-line-flex" [formGroup]="loginCreds">
-        <div class="col-6 {{formSeperator}}">
+    <form class="form col-12 row d-line-flex" [formGroup]="credentialForm">
+        
+        <div class="col-6">
+            <div class="element row">
+                <div class="text-danger" *ngIf="ApiCallError != null">
+                    <span>{{ApiCallError}}</span>
+                </div>
+            </div>
             <div class="element row" *ngIf="entryStateId == 2">
                 <div class="label col-12">
                     <label for="firstName">First Name</label>
                 </div>
                 <div class="control col-12">
-                    <input type="text" id="firstName" formControlName="FirstName" />
+                    <input type="text" id="firstName" formControlName="FirstName" placeholder="Eg: John"/>
+                </div>
+                <div class="text-danger">
+                    <span *ngIf="credentialFormSubmit && credentialFormValidators?.FirstName.errors?.['required']">First Name is Required</span>
                 </div>
             </div>
             <div class="element row" *ngIf="entryStateId == 2">
@@ -50,7 +45,22 @@
                     <label for="lastName">Last Name</label>
                 </div>
                 <div class="control col-12">
-                    <input type="text" id="lastName" formControlName="LastName" />
+                    <input type="text" id="lastName" formControlName="LastName"  placeholder="Eg: Dove"/>
+                </div>
+                <div class="text-danger">
+                    <span *ngIf="credentialFormSubmit && credentialFormValidators?.LastName.errors?.['required']">Last Name is Required</span>
+                </div>
+            </div>
+            <div class="element row" *ngIf="entryStateId == 2">
+                <div class="label col-12">
+                    <label for="phoneNum">Phone#</label>
+                </div>
+                <div class="control col-12">
+                    <input type="text" id="phoneNum" formControlName="Phone"  placeholder="Eg: +1-999-99-9999" />
+                </div>
+                <div class="text-danger">
+                    <span *ngIf="credentialFormSubmit && credentialFormValidators?.Phone.errors?.['required']">Phone Number is Required</span>
+                    <span *ngIf="credentialFormSubmit && credentialFormValidators?.Phone.errors?.['pattern']">Please enter Phone# in correct format</span>
                 </div>
             </div>
             <div class="element row">
@@ -58,7 +68,11 @@
                     <label for="emailAddressEntered">Email</label>
                 </div>
                 <div class="control col-12">
-                    <input type="email" id="emailAddressEntered" formControlName="Email" />
+                    <input type="email" id="emailAddressEntered" formControlName="Email"  placeholder="Eg: John@example.com"/>
+                </div>
+                <div class="text-danger">
+                    <span *ngIf="credentialFormSubmit && credentialFormValidators?.Email.errors?.['required']">Email is Required</span>
+                    <span *ngIf="credentialFormSubmit && credentialFormValidators?.Email.errors?.['email']">Please Enter Email in correct correct</span>
                 </div>
             </div>
             <div class="element row" *ngIf="entryStateId != 3">
@@ -66,16 +80,22 @@
                     <label for="passwordEntered">Password</label>
                 </div>
                 <div class="control col-12">
-                    <input type="password" id="passwordEntered" formControlName="Password" />
+                    <input type="password" id="passwordEntered" formControlName="Password"  placeholder="Eg: M@nn123s"/>
                 </div>
-
+                <div class="text-danger">
+                    <span *ngIf="credentialFormSubmit && credentialFormValidators?.Password.errors?.['required']">Password is Required</span>
+                    <span *ngIf="credentialFormSubmit && credentialFormValidators?.Password.errors?.['minlength']">Password should be minimum 8 characters</span>
+                </div>
             </div>
             <div class="element row" *ngIf="entryStateId == 3">
                 <div class="label col-12">
                     <label for="newPasswordEntered">New Password</label>
                 </div>
                 <div class="control col-12">
-                    <input type="password" id="newPasswordEntered" formControlName="NewPassword" />
+                    <input type="password" id="newPasswordEntered" formControlName="Password" placeholder="Eg: M@nn123s"/>
+                </div>
+                <div class="text-danger">
+                    <span *ngIf="credentialFormSubmit && credentialFormValidators?.Password.errors?.['required']">Password is Required</span>
                 </div>
             </div>
             <div class="element row" *ngIf="entryStateId == 2||entryStateId == 3">
@@ -83,17 +103,31 @@
                     <label for="passwordEntered">Re-Enter Password</label>
                 </div>
                 <div class="control col-12">
-                    <input type="password" id="passwordEntered" formControlName="PasswordReEnter" />
+                    <input type="password" id="passwordEntered" formControlName="PasswordReEnter" placeholder="Eg: M@nn123s"/>
+                </div>
+                <div class="text-danger">
+                    <span *ngIf="credentialFormSubmit && credentialFormValidators?.PasswordReEnter.errors?.['required']">Re-Enter Password is Required</span>
                 </div>
             </div>
-            <div class="element row" *ngIf="entryStateId != 1">
-                <div class="label">
-                    <img src="back-icon.png" class="btn-register" (click)="handleBack()" />
-                    <span> Go back</span>
+            <div class="element row" >
+                <div class="label col-12" *ngIf="entryStateId == 1" >
+                    <span>Login</span>
+                    <img src="login3-icon.png" class="btn-login" (click)="handleLogin()" />
+                </div>
+                <div class="label col-12 d-line-flex">
+                    
+                    <div class="col-4 d-line-flex" *ngIf="entryStateId == 2">
+                        <span>Register</span>
+                        <img src="login3-icon.png" class="btn-register" (click)="handleRegister()" />
+                    </div>
+                    <div class="col-4 d-line-flex" *ngIf="entryStateId == 3">
+                        <span>Reset Password</span>
+                        <img src="login3-icon.png" class="btn-reset-password" (click)="handleResetPassword()"/>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-6">
+        <div class="col-6 {{formSeperator}}">
             <div class="element row" *ngIf="entryStateId == 1">
                 <div class=" col-12 ">
                     <span class="col-11 position-relative">Forgot your password? Click here </span>
